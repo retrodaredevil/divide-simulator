@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.20)
 project(divide-simulator)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(divide-simulator main.cpp)
+add_executable(divide-simulator main.cpp TestElement.cpp TestElement.h)
