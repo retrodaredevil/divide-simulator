@@ -1,4 +1,5 @@
 .idea/
+~*.docx
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,clion,linux,macos,windows,vim,cmake,c++
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,clion,linux,macos,windows,vim,cmake,c++

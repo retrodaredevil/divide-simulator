@@ -1,5 +1,6 @@
 #include <iostream>
 #include "TestElement.h"
+#include "Result.h"
 
 const TestElement TEST_DATA[] {
         TestElement{0b111100001, 0b01111, 9, 5},
@@ -25,6 +26,6 @@ const TestElement TEST_DATA[] {
 
 int main() {
     // TODO split dividend in half to AC and Q
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "" << std::endl;
     return 0;
 }
