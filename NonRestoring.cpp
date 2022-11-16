@@ -20,18 +20,28 @@ Result nonRestoringMethod(const TestElement & element)
   }
   for(int i = 0; i < element.divisorLength; i++) // for divisorLength iterations
   {
-    EAQ <<= 1; // shift left
     if((1<<(element.divisorLength*2))&EAQ) // E == 1
     {
-      EAQ &= ~1; // set LSB to 0
+      EAQ <<= 1; // shift left
       EAQ += Bshifted; // add
       additions++; // increment number of additions
     } else {
-      EAQ |= 1; // set LSB to 1
+      EAQ <<= 1; // shift left
       EAQ += EB2sComp; // subtract divisor
       subtractions++;
     }
+    if((1<<(element.divisorLength*2))&EAQ) // E == 1
+    {
+        EAQ &= ~1; // set LSB to 0
+    } else {
+        EAQ |= 1; // set LSB to 1
+    }
     iterations++; // increment number of iterations
+  }
+  if((1<<(element.divisorLength*2))&EAQ) // E == 1
+  {
+    EAQ += Bshifted; // add
+    additions++; // increment number of additions
   }
   long QbitMask = ((1<<(element.divisorLength)) - 1);
   return {EAQ & QbitMask, (EAQ & AbitMask) >> element.divisorLength, iterations, additions, subtractions};

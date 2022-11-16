@@ -47,8 +47,8 @@ int main() {
             if (restoringResult.quotient != correctQuotient || correctRemainder != restoringResult.remainder) {
                 std::cerr << "Incorrect result for restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor
                           << std::endl << "\tRestoring: Quotient: " << restoringResult.quotient << " Remainder: " << restoringResult.remainder
-                          << std::endl << "\tShould be: Quotient: " << restoringResult.quotient << " Remainder: " << restoringResult.remainder
-                          << std::endl;
+                          << std::endl << "\tShould be: Quotient: " << correctQuotient << " Remainder: " << correctRemainder
+                        << std::endl;
                 anyError = true;
             }
         }
@@ -56,10 +56,10 @@ int main() {
             std::cerr << "Overflow for non-restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor << std::endl;
             anyError = true;
         } else {
-            if (nonRestoringResult.quotient != correctQuotient || correctRemainder != nonRestoringResult.remainder) {
+            if (nonRestoringResult.quotient != correctQuotient || nonRestoringResult.remainder != correctRemainder) {
                 std::cerr << "Incorrect result for non-restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor
                           << std::endl << "\tNon-Restoring: Quotient: " << nonRestoringResult.quotient << " Remainder: " << nonRestoringResult.remainder
-                          << std::endl << "\tShould be: Quotient: " << nonRestoringResult.quotient << " Remainder: " << nonRestoringResult.remainder
+                          << std::endl << "\tShould be: Quotient: " << correctQuotient << " Remainder: " << correctRemainder
                           << std::endl;
                 anyError = true;
             }
