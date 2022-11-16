@@ -75,17 +75,17 @@ int main() {
         }
         if (anyError) {
             std::cerr << std::endl;
+        } else {
+            std::cout << element.divisorLength << "," << element.dividend << "," << element.divisor
+                      << "," << restoringResult.quotient << "," << restoringResult.remainder
+                      << "," << restoringResult.numIts << "," << restoringResult.numAdditions << "," << restoringResult.numSubtractions
+                      << "," << nonRestoringResult.numIts << "," << nonRestoringResult.numAdditions << "," << nonRestoringResult.numSubtractions
+                      << std::endl;;
         }
-        std::cout << element.divisorLength << "," << element.dividend << "," << element.divisor
-                << "," << restoringResult.quotient << "," << restoringResult.remainder
-                << "," << restoringResult.numIts << "," << restoringResult.numAdditions << "," << restoringResult.numSubtractions
-                << "," << nonRestoringResult.numIts << "," << nonRestoringResult.numAdditions << "," << nonRestoringResult.numSubtractions
-                << std::endl;
-                ;
     }
-    Result restoringResult = restoringMethod(TEST_DATA[0]);
-    std::cout << restoringResult.quotient << std::endl << restoringResult.remainder << std::endl;
-    Result num = nonRestoringMethod(TEST_DATA[0]);
-    std::cout << num.quotient << std::endl << num.remainder << std::endl << num.numIts << std::endl << num.numAdditions << std::endl << num.numSubtractions << std::endl;
+//    Result restoringResult = restoringMethod(TEST_DATA[0]);
+//    std::cout << restoringResult.quotient << std::endl << restoringResult.remainder << std::endl;
+//    Result num = nonRestoringMethod(TEST_DATA[0]);
+//    std::cout << num.quotient << std::endl << num.remainder << std::endl << num.numIts << std::endl << num.numAdditions << std::endl << num.numSubtractions << std::endl;
     return 0;
 }
