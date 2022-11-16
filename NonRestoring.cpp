@@ -2,10 +2,9 @@
 // Created by User on 11/15/2022.
 //
 
-#include "Restoring.h"
-#include <iostream>
+#include "NonRestoring.h"
 
-Result restoringMethod(const TestElement & element)
+Result nonRestoringMethod(const TestElement & element)
 {
   long iterations = 0;
   long additions = 0;
@@ -22,15 +21,15 @@ Result restoringMethod(const TestElement & element)
   for(int i = 0; i < element.divisorLength; i++) // for divisorLength iterations
   {
     EAQ <<= 1; // shift left
-    EAQ += EB2sComp; // subtract divisor
-    subtractions++; // increment number of subtractions
     if((1<<(element.divisorLength*2))&EAQ) // E == 1
     {
       EAQ &= ~1; // set LSB to 0
-      EAQ += Bshifted; // restore
+      EAQ += Bshifted; // add
       additions++; // increment number of additions
     } else {
       EAQ |= 1; // set LSB to 1
+      EAQ += EB2sComp; // subtract divisor
+      subtractions++;
     }
     iterations++; // increment number of iterations
   }

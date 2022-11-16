@@ -2,6 +2,7 @@
 #include "TestElement.h"
 #include "Result.h"
 #include "Restoring.h"
+#include "NonRestoring.h"
 
 const TestElement TEST_DATA[] {
         TestElement{0b111100001, 0b01111, 9, 6}, // changing divisor length from 5 to 6 to avoid overflow
@@ -34,9 +35,57 @@ const size_t TEST_DATA_SIZE = 20;
 int main() {
     std::cout << "Divisor Length,Dividend,Divisor,Quotient,Remainder,Restoring Iterations,Restoring Additions,Restoring Subtracts,Non-Restoring Iterations,Non-Restoring Additions,Non-Restoring Subtracts" << std::endl;
     for (const auto & element : TEST_DATA) {
-//        Result restoreResult = ;
+        Result restoringResult = restoringMethod(element);
+        Result nonRestoringResult = nonRestoringMethod(element);
+        bool anyError = false;
+        long correctQuotient = element.dividend / element.divisor;
+        long correctRemainder = element.dividend % element.divisor;
+        if (restoringResult.quotient < 0) { // indicates overflow
+            std::cerr << "Overflow for restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor << std::endl;
+            anyError = true;
+        } else {
+            if (restoringResult.quotient != correctQuotient || correctRemainder != restoringResult.remainder) {
+                std::cerr << "Incorrect result for restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor
+                          << std::endl << "\tRestoring: Quotient: " << restoringResult.quotient << " Remainder: " << restoringResult.remainder
+                          << std::endl << "\tShould be: Quotient: " << restoringResult.quotient << " Remainder: " << restoringResult.remainder
+                          << std::endl;
+                anyError = true;
+            }
+        }
+        if (nonRestoringResult.quotient < 0) { // indicates overflow
+            std::cerr << "Overflow for non-restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor << std::endl;
+            anyError = true;
+        } else {
+            if (nonRestoringResult.quotient != correctQuotient || correctRemainder != nonRestoringResult.remainder) {
+                std::cerr << "Incorrect result for non-restoring method with dividend: " << element.dividend << " and divisor: " << element.divisor
+                          << std::endl << "\tNon-Restoring: Quotient: " << nonRestoringResult.quotient << " Remainder: " << nonRestoringResult.remainder
+                          << std::endl << "\tShould be: Quotient: " << nonRestoringResult.quotient << " Remainder: " << nonRestoringResult.remainder
+                          << std::endl;
+                anyError = true;
+            }
+        }
+
+        if (restoringResult.quotient >= 0 && nonRestoringResult.quotient >= 0) { // no overflow for either method
+            if (restoringResult.quotient != nonRestoringResult.quotient || restoringResult.remainder != nonRestoringResult.remainder) {
+                std::cerr << "Different results for dividend: " << element.dividend << " and divisor: " << element.divisor
+                          << std::endl << "\tRestoring: Quotient: " << restoringResult.quotient << " Remainder: " << restoringResult.remainder
+                          << std::endl << "\tNon-Restoring: Quotient: " << nonRestoringResult.quotient << " Remainder: " << nonRestoringResult.remainder << std::endl;
+                anyError = true;
+            }
+        }
+        if (anyError) {
+            std::cerr << std::endl;
+        }
+        std::cout << element.divisorLength << "," << element.dividend << "," << element.divisor
+                << "," << restoringResult.quotient << "," << restoringResult.remainder
+                << "," << restoringResult.numIts << "," << restoringResult.numAdditions << "," << restoringResult.numSubtractions
+                << "," << nonRestoringResult.numIts << "," << nonRestoringResult.numAdditions << "," << nonRestoringResult.numSubtractions
+                << std::endl;
+                ;
     }
-    Result num = restoringMethod(TEST_DATA[1]);
-    std::cout << num.quotient << std::endl << num.remainder << std::endl;
+    Result restoringResult = restoringMethod(TEST_DATA[0]);
+    std::cout << restoringResult.quotient << std::endl << restoringResult.remainder << std::endl;
+    Result num = nonRestoringMethod(TEST_DATA[0]);
+    std::cout << num.quotient << std::endl << num.remainder << std::endl << num.numIts << std::endl << num.numAdditions << std::endl << num.numSubtractions << std::endl;
     return 0;
 }
