@@ -1,9 +1,10 @@
 #include <iostream>
 #include "TestElement.h"
 #include "Result.h"
+#include "Restoring.h"
 
 const TestElement TEST_DATA[] {
-        TestElement{0b111100001, 0b01111, 9, 5},
+        TestElement{0b111100001, 0b01111, 9, 6}, // changing divisor length from 5 to 6 to avoid overflow
         TestElement{0b001001101, 0b11011, 9, 5},
         TestElement{0b000010101, 0b10011, 9, 5},
         TestElement{0b100001101, 0b01101, 9, 5},
@@ -26,6 +27,7 @@ const TestElement TEST_DATA[] {
 
 int main() {
     // TODO split dividend in half to AC and Q
-    std::cout << "" << std::endl;
+    Result num = restoringMethod(TEST_DATA[0]);
+    std::cout << num.quotient << std::endl << num.remainder << std::endl;
     return 0;
 }

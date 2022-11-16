@@ -11,7 +11,7 @@ class Result
 public:
     long quotient;
     long remainder;
-    long numInts;
+    long numIts;
     long numAdditions;
     long numSubtractions;
 };
