@@ -28,6 +28,6 @@ const TestElement TEST_DATA[] {
 int main() {
     // TODO split dividend in half to AC and Q
     Result num = restoringMethod(TEST_DATA[0]);
-    std::cout << num.quotient << std::endl << num.remainder << std::endl;
+    std::cout << num.quotient << std::endl << num.remainder << std::endl << num.numIts << std::endl << num.numAdditions << std::endl << num.numSubtractions << std::endl;
     return 0;
 }

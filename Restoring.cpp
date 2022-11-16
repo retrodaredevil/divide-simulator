@@ -7,32 +7,33 @@
 
 Result restoringMethod(const TestElement & element)
 {
+  long iterations = 0;
+  long additions = 0;
+  long subtractions = 0;
   long EAQ = element.dividend;
   long EBbitMask = (1<<(element.divisorLength+1)) - 1;
   long EB2sComp = (((~element.divisor + 1) & EBbitMask) << element.divisorLength);
   long Bshifted = element.divisor << element.divisorLength;
-  std::cout << "EAQ: " << EAQ << " mask: " << EBbitMask << " 2scomp" << EB2sComp << " b shifted: " << Bshifted << std::endl;
-
   long AbitMask = ((1<<(element.divisorLength)) - 1) << element.divisorLength;
   const long originalA = ((EAQ & AbitMask) >> element.divisorLength);
-  std::cout << "A: " << originalA << std::endl;
-  if (originalA >= element.divisor) {
-    std::cout << "overflow" << std::endl;
+  if (originalA >= element.divisor) { // divide overflow
     return {-1, 0, 0, 0, 0};
   }
-  for(int i = 0; i < element.divisorLength; i++)
+  for(int i = 0; i < element.divisorLength; i++) // for divisorLength iterations
   {
-    EAQ <<= 1;
-    EAQ += EB2sComp;
+    EAQ <<= 1; // shift left
+    EAQ += EB2sComp; // subtract divisor
+    subtractions++; // increment number of subtractions
     if((1<<(element.divisorLength*2))&EAQ) // E == 1
     {
       EAQ &= ~1; // set LSB to 0
-      EAQ += Bshifted;
+      EAQ += Bshifted; // restore
+      additions++; // increment number of additions
     } else {
       EAQ |= 1; // set LSB to 1
     }
+    iterations++; // increment number of iterations
   }
-  std::cout << "now EAQ: " << EAQ << std::endl;
   long QbitMask = ((1<<(element.divisorLength)) - 1);
-  return {EAQ & QbitMask, (EAQ & AbitMask) >> element.divisorLength, 0, 0, 0};
+  return {EAQ & QbitMask, (EAQ & AbitMask) >> element.divisorLength, iterations, additions, subtractions};
 }
