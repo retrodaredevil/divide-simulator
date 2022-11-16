@@ -2,6 +2,7 @@
 #include "TestElement.h"
 #include "Result.h"
 #include "Restoring.h"
+#include "NonRestoring.h"
 
 const TestElement TEST_DATA[] {
         TestElement{0b111100001, 0b01111, 9, 6}, // changing divisor length from 5 to 6 to avoid overflow
@@ -27,7 +28,7 @@ const TestElement TEST_DATA[] {
 
 int main() {
     // TODO split dividend in half to AC and Q
-    Result num = restoringMethod(TEST_DATA[0]);
+    Result num = nonRestoringMethod(TEST_DATA[1]);
     std::cout << num.quotient << std::endl << num.remainder << std::endl << num.numIts << std::endl << num.numAdditions << std::endl << num.numSubtractions << std::endl;
     return 0;
 }
