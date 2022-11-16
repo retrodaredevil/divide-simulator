@@ -23,11 +23,20 @@ const TestElement TEST_DATA[] {
         TestElement{0b100000111000101101100, 0b10000111101, 21, 11},
         TestElement{0b100011100011000111001, 0b00101010101, 21, 11},
         TestElement{0b000010101100000010000, 0b00001111000, 21, 11},
+
+        TestElement{0b0111111111110000000000001, 0b0111111111111, 25, 13},
+        TestElement{0b1000111000110111000111001, 0b1010101010101, 25, 13},
+        TestElement{0b1000000111110001100011001, 0b1000011111111, 25, 13},
+        TestElement{0b1000011100001000100100000, 0b0000011100000, 25, 13},
 };
+const size_t TEST_DATA_SIZE = 20;
 
 int main() {
-    // TODO split dividend in half to AC and Q
-    Result num = restoringMethod(TEST_DATA[0]);
+    std::cout << "Divisor Length,Dividend,Divisor,Quotient,Remainder,Restoring Iterations,Restoring Additions,Restoring Subtracts,Non-Restoring Iterations,Non-Restoring Additions,Non-Restoring Subtracts" << std::endl;
+    for (const auto & element : TEST_DATA) {
+//        Result restoreResult = ;
+    }
+    Result num = restoringMethod(TEST_DATA[1]);
     std::cout << num.quotient << std::endl << num.remainder << std::endl;
     return 0;
 }
