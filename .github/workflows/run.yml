@@ -1,4 +1,4 @@
-name: Gradle Build
+name: Build and run
 
 on: [push]
 
@@ -13,12 +13,12 @@ jobs:
         with:
           cmake-version: '3.16.x'
       - name: Use cmake
-        run:
-          - mkdir build
-          - cmake -S . -B build
-          - cd build
-          - make
-          - ./divide-simulator | tee data.csv
+        run: |
+          mkdir build
+          cmake -S . -B build
+          cd build
+          make
+          ./divide-simulator | tee data.csv
       - uses: actions/upload-artifact@v3
         with:
           name: data.csv
