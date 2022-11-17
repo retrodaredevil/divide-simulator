@@ -1,9 +1,5 @@
-//
-// Created by User on 11/15/2022.
-//
 
 #include "Restoring.h"
-#include <iostream>
 
 Result restoringMethod(const TestElement & element)
 {
@@ -11,11 +7,11 @@ Result restoringMethod(const TestElement & element)
   long additions = 0;
   long subtractions = 0;
   long EAQ = element.dividend;
-  long EBbitMask = (1<<(element.divisorLength+1)) - 1;
-  long EB2sComp = (((~element.divisor + 1) & EBbitMask) << element.divisorLength);
+  long EBbitMask = (1 << (element.divisorLength + 1)) - 1;
+  long EB2sComp = ((~element.divisor + 1) & EBbitMask) << element.divisorLength;
   long Bshifted = element.divisor << element.divisorLength;
-  long AbitMask = ((1<<(element.divisorLength)) - 1) << element.divisorLength;
-  const long originalA = ((EAQ & AbitMask) >> element.divisorLength);
+  long AbitMask = ((1 << element.divisorLength) - 1) << element.divisorLength;
+  const long originalA = (EAQ & AbitMask) >> element.divisorLength;
   if (originalA >= element.divisor) { // divide overflow
     return {-1, 0, 0, 0, 0};
   }
@@ -24,7 +20,7 @@ Result restoringMethod(const TestElement & element)
     EAQ <<= 1; // shift left
     EAQ += EB2sComp; // subtract divisor
     subtractions++; // increment number of subtractions
-    if((1<<(element.divisorLength*2))&EAQ) // E == 1
+    if((1 << (element.divisorLength * 2)) & EAQ) // E == 1
     {
       EAQ &= ~1; // set LSB to 0
       EAQ += Bshifted; // restore
@@ -34,6 +30,6 @@ Result restoringMethod(const TestElement & element)
     }
     iterations++; // increment number of iterations
   }
-  long QbitMask = ((1<<(element.divisorLength)) - 1);
+  long QbitMask = (1 << element.divisorLength) - 1;
   return {EAQ & QbitMask, (EAQ & AbitMask) >> element.divisorLength, iterations, additions, subtractions};
 }

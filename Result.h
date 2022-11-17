@@ -9,11 +9,11 @@
 class Result
 {
 public:
-    long quotient;
-    long remainder;
-    long numIts;
-    long numAdditions;
-    long numSubtractions;
+  long quotient;
+  long remainder;
+  long numIts;
+  long numAdditions;
+  long numSubtractions;
 };
 
 

@@ -4,11 +4,10 @@
 
 class TestElement {
 public:
-    long dividend;
-    long divisor;
-    long dividendLength;
-    long divisorLength;
-
+  long dividend;
+  long divisor;
+  long dividendLength;
+  long divisorLength;
 };
 
 

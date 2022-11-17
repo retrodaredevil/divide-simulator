@@ -1,0 +1,25 @@
+name: Gradle Build
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.13
+        with:
+          cmake-version: '3.16.x'
+      - name: Use cmake
+        run:
+          - mkdir build
+          - cmake -S . -B build
+          - cd build
+          - make
+          - ./divide-simulator | tee data.csv
+      - uses: actions/upload-artifact@v3
+        with:
+          name: data.csv
+          path: data.csv
