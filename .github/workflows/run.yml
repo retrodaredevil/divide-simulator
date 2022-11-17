@@ -20,6 +20,7 @@ jobs:
           cd build
           make
           ./divide-simulator | tee data.csv
+      # To download this artifact: https://docs.github.com/en/actions/managing-workflow-runs/downloading-workflow-artifacts
       - uses: actions/upload-artifact@v3
         with:
           name: data.csv

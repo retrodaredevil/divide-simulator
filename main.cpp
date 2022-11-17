@@ -5,7 +5,7 @@
 #include "NonRestoring.h"
 
 const TestElement TEST_DATA[] {
-    TestElement{0b111100001, 0b01111, 9, 6}, // changing divisor length from 5 to 6 to avoid overflow
+    TestElement{0b111100001, 0b01111, 9, 5},
     TestElement{0b001001101, 0b11011, 9, 5},
     TestElement{0b000010101, 0b10011, 9, 5},
     TestElement{0b100001101, 0b01101, 9, 5},
