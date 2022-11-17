@@ -23,4 +23,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: data.csv
-          path: data.csv
+          path: build/data.csv
